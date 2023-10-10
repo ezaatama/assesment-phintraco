@@ -13,8 +13,7 @@ class DataAttendancesCubit extends Cubit<DataAttendancesState> {
     final List<Map<String, dynamic>> result =
         await db!.query('attendances', where: 'id = ?', whereArgs: [userId]);
 
-    // result.map((map) => Attendance.fromJson(map)).toList();
-    // print(result);
+    print(result);
     if (result.isNotEmpty) {
       Attendance att = Attendance.fromJson(result.first);
       emit(DataAttendancesLoaded(checkInData: att));

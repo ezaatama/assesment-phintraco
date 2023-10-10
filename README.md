@@ -6,7 +6,4 @@ Flutter version 3.10
 
 Clone Project -> Jalankan flutter pub get -> Run project
 
-Masuk akun gunakan :
-
-ezatama33@gmail.com
-123456
+Registrasi akun anda -> Silahkan login -> Lakukan tap in dan tap out

@@ -94,6 +94,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                     checkOut: DateTime.now(),
                                     createdAt: attendanceIn.createdAt,
                                     updatedAt: DateTime.now());
+
                                 if (state.isCheckIn == false) {
                                   context
                                       .read<AttendancesCubit>()
