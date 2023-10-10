@@ -203,18 +203,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   BlocBuilder<DataAttendancesCubit, DataAttendancesState>(
                     builder: (context, state) {
                       if (state is DataAttendancesLoaded) {
-                        return Column(
-                            children: state.checkInData.map((e) {
-                          String formatDateIn = DateFormat.EEEE('id')
-                              .format(DateTime.tryParse(e['Date_In'] ?? '')!);
-                          String formatCheckIn = DateFormat.jm()
-                              .format(DateTime.tryParse(e['Check_In'] ?? '')!);
-                          String formatCheckOut = DateFormat.jm()
-                              .format(DateTime.tryParse(e['Check_Out'] ?? '')!);
-                          String date = DateFormat('dd/M/yyyy')
-                              .format(DateTime.tryParse(e['Date'] ?? '')!);
-
-                          return Container(
+                        return Column(children: [
+                          Container(
                             padding: const EdgeInsets.all(8),
                             decoration: const BoxDecoration(
                                 border: Border(
@@ -230,10 +220,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(formatDateIn,
+                                    Text(
+                                        state.checkInData.dateIn == null
+                                            ? '-'
+                                            : DateFormat.EEEE('id').format(
+                                                state.checkInData.dateIn!),
                                         style: BLACK_TEXT_STYLE.copyWith(
                                             fontWeight: FontUI.WEIGHT_MEDIUM)),
-                                    Text(date,
+                                    Text(
+                                        state.checkInData.date == null
+                                            ? '-'
+                                            : DateFormat('dd/M/yyyy').format(
+                                                state.checkInData.date!),
                                         style: BLACK_TEXT_STYLE.copyWith(
                                             fontWeight: FontUI.WEIGHT_MEDIUM)),
                                   ],
@@ -258,7 +256,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                               color: ColorUI.GREEN),
                                         ),
                                         const SizedBox(width: 5),
-                                        Text(formatCheckIn,
+                                        Text(
+                                            state.checkInData.checkIn == null
+                                                ? '-'
+                                                : DateFormat.jm().format(
+                                                    state.checkInData.checkIn!),
                                             style: BLACK_TEXT_STYLE.copyWith(
                                                 fontWeight:
                                                     FontUI.WEIGHT_MEDIUM)),
@@ -289,7 +291,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                               color: ColorUI.BLACK),
                                         ),
                                         const SizedBox(width: 5),
-                                        Text(formatCheckOut,
+                                        Text(
+                                            state.checkInData.checkOut == null
+                                                ? '-'
+                                                : DateFormat.jm().format(state
+                                                    .checkInData.checkOut!),
                                             style: BLACK_TEXT_STYLE.copyWith(
                                                 fontWeight:
                                                     FontUI.WEIGHT_MEDIUM)),
@@ -302,8 +308,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 )
                               ],
                             ),
-                          );
-                        }).toList());
+                          )
+                        ]);
                       }
                       return const SizedBox();
                     },

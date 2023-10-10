@@ -8,12 +8,20 @@ part 'data_attendances_state.dart';
 class DataAttendancesCubit extends Cubit<DataAttendancesState> {
   DataAttendancesCubit() : super(DataAttendancesInitial());
 
-  void fetchDataCheckInOut(int user) async {
+  Future<Attendance?> fetchDataCheckInOut(int userId) async {
     final db = await DBHelper().database;
-    final List<Map<String, dynamic>> result = await db!.query('attendances');
-    print(result);
+    final List<Map<String, dynamic>> result =
+        await db!.query('attendances', where: 'id = ?', whereArgs: [userId]);
 
     // result.map((map) => Attendance.fromJson(map)).toList();
-    emit(DataAttendancesLoaded(checkInData: result));
+    // print(result);
+    if (result.isNotEmpty) {
+      Attendance att = Attendance.fromJson(result.first);
+      emit(DataAttendancesLoaded(checkInData: att));
+    } else {
+      emit(DataAttendancesEmpty());
+    }
+
+    return null;
   }
 }

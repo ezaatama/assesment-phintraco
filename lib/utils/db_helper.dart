@@ -74,10 +74,12 @@ class DBHelper {
       await db!.insert('attendances', attendances.toJson());
     } else {
       await db!.update('attendances', attendances.toJson(),
-          where: 'Id = ?', whereArgs: [attendances.id]);
+          where: 'id = ?', whereArgs: [attendances.id]);
     }
+    await db.insert('attendances', attendances.toJson());
+
     await db.update('users', {'updated_at': DateTime.now().toIso8601String()},
-        where: 'Id = ?', whereArgs: [user.id]);
+        where: 'id = ?', whereArgs: [user.id]);
   }
 
   Future<void> updateAttendanceCheckout(
@@ -86,9 +88,9 @@ class DBHelper {
 
     if (attendance.id != null) {
       await db!.update('attendances', attendance.toJson(),
-          where: 'Id = ?', whereArgs: [attendance.id]);
+          where: 'id = ?', whereArgs: [attendance.id]);
     }
     await db!.update('users', {'updated_at': DateTime.now().toIso8601String()},
-        where: 'Id = ?', whereArgs: [user.id]);
+        where: 'id = ?', whereArgs: [user.id]);
   }
 }

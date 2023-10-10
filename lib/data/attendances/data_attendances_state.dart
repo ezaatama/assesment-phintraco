@@ -8,7 +8,8 @@ final class DataAttendancesInitial extends DataAttendancesState {}
 final class DataAttendancesLoading extends DataAttendancesState {}
 
 final class DataAttendancesLoaded extends DataAttendancesState {
-  final List<Map<String, dynamic>> checkInData;
+  // final List<Map<String, dynamic>> checkInData;
+  final Attendance checkInData;
 
   DataAttendancesLoaded({required this.checkInData});
 }

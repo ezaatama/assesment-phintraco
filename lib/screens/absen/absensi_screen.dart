@@ -114,7 +114,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                         : "assets/icons/ic_checkOut.png",
                                     fit: BoxFit.cover,
                                     width:
-                                        MediaQuery.of(context).size.width * .40,
+                                        MediaQuery.of(context).size.width * .42,
                                     height: MediaQuery.of(context).size.height *
                                         .20,
                                   ),
@@ -175,16 +175,8 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                     margin: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: state.checkInData.map((e) {
-                          String formatDateIn = DateFormat.EEEE('id')
-                              .format(DateTime.tryParse(e['Date_In'])!);
-                          String formatCheckIn = DateFormat.jm()
-                              .format(DateTime.tryParse(e['Check_In'])!);
-                          String formatCheckOut = DateFormat.jm()
-                              .format(DateTime.tryParse(e['Check_Out'])!);
-                          String date = DateFormat('dd/M/yyyy')
-                              .format(DateTime.tryParse(e['Date'])!);
-                          return Column(
+                        children: [
+                          Column(
                             children: [
                               Text(
                                 "Riwayat Absen",
@@ -212,7 +204,10 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          formatDateIn,
+                                          state.checkInData.dateIn == null
+                                              ? '-'
+                                              : DateFormat.EEEE('id').format(
+                                                  state.checkInData.dateIn!),
                                           style: BLACK_TEXT_STYLE.copyWith(
                                               fontSize: 18,
                                               fontWeight: FontUI.WEIGHT_MEDIUM),
@@ -234,7 +229,13 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                                   color: ColorUI.GREEN),
                                             ),
                                             const SizedBox(width: 5),
-                                            Text(formatCheckIn,
+                                            Text(
+                                                state.checkInData.checkIn ==
+                                                        null
+                                                    ? '-'
+                                                    : DateFormat.jm().format(
+                                                        state.checkInData
+                                                            .checkIn!),
                                                 style:
                                                     BLACK_TEXT_STYLE.copyWith(
                                                         fontWeight: FontUI
@@ -255,7 +256,13 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                                   color: ColorUI.BLACK),
                                             ),
                                             const SizedBox(width: 5),
-                                            Text(formatCheckOut,
+                                            Text(
+                                                state.checkInData.checkOut ==
+                                                        null
+                                                    ? '-'
+                                                    : DateFormat.jm().format(
+                                                        state.checkInData
+                                                            .checkOut!),
                                                 style:
                                                     BLACK_TEXT_STYLE.copyWith(
                                                         fontWeight: FontUI
@@ -266,7 +273,12 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                     ),
                                     Column(
                                       children: [
-                                        Text(date,
+                                        Text(
+                                            state.checkInData.date == null
+                                                ? '-'
+                                                : DateFormat('dd/M/yyyy')
+                                                    .format(state
+                                                        .checkInData.date!),
                                             style: BLACK_TEXT_STYLE.copyWith(
                                                 fontWeight:
                                                     FontUI.WEIGHT_MEDIUM)),
@@ -276,8 +288,8 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                 ),
                               )
                             ],
-                          );
-                        }).toList()),
+                          )
+                        ]),
                   );
                 }
                 return const SizedBox();
